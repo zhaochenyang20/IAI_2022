@@ -134,4 +134,124 @@ $$
 <img src="./pic/deep_learning/grand.jpg" style="zoom:25%;" />
 
 1. 梯度是指增长最快的方向，故而需要加上梯度的相反数
-2. 
+2. 在多维情况下，梯度计算较为复杂，可以改为偏导数
+
+### 手动计算
+
+<img src="./pic/deep_learning/gradient.jpg" style="zoom:25%;" />
+
+这张图对于 sigmoid 情况下的梯度下降说的很清楚。
+
+<img src="./pic/deep_learning/gradient3.jpg" style="zoom:25%;" />
+
+注意，这里 k 是 j 的后续，而不前驱，也即右图中 k 在 j 上方。 
+
+### 梯度下降算法
+
+<img src="./pic/deep_learning/gradient2.jpg" style="zoom:25%;" />
+
+ **批量梯度下降**
+
+标准的梯度下降，即批量梯度下降（batch gradient descent, BGD），在整个训练集上计算损失函数关于参数 $\theta$ 的梯度。
+
+$$
+\theta=\theta-\eta \nabla_{\theta}J(\theta)
+$$
+其中 $\theta$ 是模型的参数，$\eta$ 是学习率，$\nabla_{\theta}J(\theta)$ 为损失函数对参数 $\theta$ 的导数。由于为了一次参数更新我们需要在整个训练集上计算梯度，导致 BGD 可能会非常慢，而且在训练集太大而不能全部载入内存的时候会很棘手。BGD 也不允许我们在线更新模型参数，即实时增加新的训练样本。
+
+BGD 对于凸误差曲面（convex error surface）保证收敛到全局最优点，而对于非凸曲面（non-convex surface）则是局部最优点。
+
+缺点：收敛缓慢，容易陷入局部极值点
+
+**随机梯度下降**
+
+随机梯度下降（ stotastic gradient descent, SGD ）则是每次使用一个训练样本 $x^{i}$ 和标签 $y^{i}$ 进行一次参数更新。
+
+$$
+\theta=\theta -\eta \cdot \nabla_{\theta}J(\theta;x^i;y^i)
+$$
+其中 $\theta$ 是模型的参数，$\eta$ 是学习率，$\nabla_{\theta}J(\theta)$ 为损失函数对参数 $\theta$ 的导数。BGD 对于大数据集来说执行了很多冗余的计算，因为在每一次参数更新前都要计算很多相似样本的梯度。SGD 通过一次执行一次更新解决了这种冗余。因此通常 SGD 的速度会非常快而且可以被用于在线学习。SGD 以高方差的特点进行连续参数更新，导致目标函数严重震荡。
+
+![sgd震荡](https://paddlepedia.readthedocs.io/en/latest/_images/sgd.png)
+
+BGD 能够收敛到（局部）最优点，然而 SGD 的震荡特点导致其可以跳到新的潜在的可能更好的局部最优点。已经有研究显示当我们慢慢的降低学习率时，SGD 拥有和 BGD 一样的收敛性能，对于非凸和凸曲面几乎同样能够达到局部或者全局最优点。
+
+**Mini-batch 梯度下降**
+
+Mini-batch gradient descent（ mini-batch gradient descent, MBGD ）则是在上面两种方法中采取了一个折中的办法：每次从训练集中取出$batch  size$个样本作为一个mini-batch，以此来进行一次参数更新。
+
+$$
+\theta=\theta -\eta \cdot \nabla_{\theta} J(\theta;x^{(i:i+n);y^{(i:i+n)}})
+$$
+其中 $\theta$ 是模型的参数，$\eta$ 是学习率，$\nabla_{\theta} J(\theta;x^{(i:i+n);y^{(i:i+n)}}$ 为损失函数对参数 $\theta$ 的导数，n 为 Mini-bach的大小（batch size）。 batch size 越大，批次越少，训练时间会更快一点，但可能造成数据的很大浪费；而 batch size 越小，对数据的利用越充分，浪费的数据量越少，但批次会很大，训练会更耗时。
+
+**优点**
+
++ 减小参数更新的方差，这样可以有更稳定的收敛。
++ 利用现在最先进的深度学习库对矩阵运算进行了高度优化的特点，这样可以使得计算 mini-batch 的梯度更高效。
+
+样本数目较大的话，一般的 mini-batch 大小为 64 到 512，考虑到电脑内存设置和使用的方式，如果mini-batch 大小是 $2^n$，代码会运行地快一些。
+
+MBGD 是训练神经网络时的常用方法，而且通常即使实际上使用的是 MBGD，也会使用 SGD 这个词来代替。
+
+### **Back Propagation**
+
+误差反向传播算法，给出了一种计算偏导数的方法。
+
+<img src="./pic/deep_learning/BP.jpg" style="zoom:25%;" />
+
+## cross entropy
+
+在物理学中，“熵”被用来表示热力学系统所呈现的无序程度。香农将这一概念引入信息论领域，提出了“信息熵”概念，通过对数函数来测量信息的不确定性。
+
+交叉熵（cross entropy）是信息论中的重要概念，主要用来度量两个概率分布间的差异。假定 $p$ 和 $q$ 是数据 $x$ 的两个概率分布，通过 $q$ 来表示 $p$ 的交叉熵可如下计算：
+
+$$
+H\left( p,q \right) =-\sum_x{p\left( x \right) \log q\left( x \right)}
+$$
+
+交叉熵刻画了两个概率分布之间的距离，旨在描绘通过概率分布 $q$ 来表达概率分布 $p$ 的困难程度。根据公式不难理解，交叉熵越小，两个概率分布 $p$ 和 $q$ 越接近。
+
+这里仍然以三类分类问题为例，假设数据 $x$ 属于类别 $1$。记数据 $x$ 的类别分布概率为 $y$，显然 $y=(1,0,0)$ 代表数据 $x$ 的实际类别分布概率。记 $\hat{y}
+$ 代表模型预测所得类别分布概率。
+
+那么对于数据 $x$ 而言，其实际类别分布概率 $y$ 和模型预测类别分布概率 $\hat{y}$ 的交叉熵损失函数定义为：
+
+$$
+cross\ entropy=-y\times \log \left( \hat{y} \right)
+$$
+
+很显然，一个良好的神经网络要尽量保证对于每一个输入数据，神经网络所预测类别分布概率与实际类别分布概率之间的差距越小越好，即交叉熵越小越好。于是，可将交叉熵作为损失函数来训练神经网络。
+
+<img src="https://paddlepedia.readthedocs.io/en/latest/_images/CrossEntropy.png" style="zoom:53%;" />
+
+上图给出了一个三个类别分类的例子。由于输入数据 $x$ 属于类别 $1$，因此其实际类别概率分布值为 $y=(y_1,y_2,y_3)=(1,0,0)$。经过神经网络的变换，得到了输入数据 $x$ 相对于三个类别的预测中间值 $(z1,z2,z3)$。然后，经过 $Softmax$ 函数映射，得到神经网络所预测的输入数据 $x$ 的类别分布概率 $\hat{y}=\left( \hat{y}_1,\hat{y}_2,\hat{y}_3 \right)$。根据前面的介绍，$\hat{y}_1$、$\hat{y}_2$ 和 $\hat{y}_3$ 为 $(0,1)$ 范围之间的一个概率值。由于样本 $x$ 属于第一个类别，因此希望神经网络所预测得到的 $\hat{y}_1$取值要远远大于 $\hat{y}_2$ 和 $\hat{y}_3$ 的取值。为了得到这样的神经网络，在训练中可利用如下交叉熵损失函数来对模型参数进行优化：
+$$
+cross\ entropy=-\left( y_1\times \log \left( \hat{y}_1 \right) +y_2\times \log \left( \hat{y}_2 \right) +y_3\times \log \left( \hat{y}_3 \right) \right) 
+$$
+
+在上式中，$y_2$ 和 $y_3$ 均为 $0$、$y_1$ 为 $1$，因此交叉熵损失函数简化为：
+$$
+-y_1\times \log \left( \hat{y}_1 \right) =-\log \left( \hat{y}_1 \right) 
+$$
+
+在神经网络训练中，要将输入数据实际的类别概率分布与模型预测的类别概率分布之间的误差（即损失）从输出端向输入端传递，以便来优化模型参数。下面简单介绍根据交叉熵计算得到的误差从 $\hat{y}_1$ 传递给 $z_1$ 和 $z_2$（$z_3$ 的推导与 $z_2$ 相同）的情况。
+
+$$
+\frac{\partial \hat{y}_1}{\partial z_1}=\frac{\partial \left( \frac{e^{z_1}}{\sum_k{e^{z_k}}} \right)}{\partial z_1}=\frac{\left( e^{z_1} \right) ^{'}\times \sum_k{e^{z_k}-e^{z_1}\times e^{z_1}}}{\left( \sum_k{e^{z_k}} \right) ^2}=\frac{e^{z_1}}{\sum_k{e^{z_k}}}-\frac{e^{z_1}}{\sum_k{e^{z_k}}}\times \frac{e^{z_1}}{\sum_k{e^{z_k}}}=\hat{y}_1\left( 1-\hat{y}_1 \right) 
+$$
+
+由于交叉熵损失函数 $-\log \left( \hat{y}_1 \right)$ 对 $\hat{y}_1$ 求导的结果为 $-\frac{1}{\hat{y}_1}$，$\hat{y}_1\left( 1-\hat{y}_1 \right)$ 与 $-\frac{1}{\hat{y}_1}$ 相乘为 $\hat{y}_1-1$。这说明一旦得到模型预测输出 $\hat{y}_1$，将该输出减去1就是交叉损失函数相对于 $z_1$ 的偏导结果。
+
+$$
+\frac{\partial \hat{y}_1}{\partial z_2}=\frac{\partial \left( \frac{e^{z_1}}{\sum_k{e^{z_k}}} \right)}{\partial z_2}=\frac{0\times \sum_k{e^{z_k}-e^{z_1}\times e^{z_2}}}{\left( \sum_k{e^{z_k}} \right) ^2}=-\frac{e^{z_1}}{\sum_k{e^{z_k}}}\times \frac{e^{z_2}}{\sum_k{e^{z_k}}}=-\hat{y}_1\hat{y}_2
+$$
+
+同理，交叉熵损失函数导数为 $-\frac{1}{\hat{y}_1}$，$-\hat{y}_1\hat{y}_2$ 与 $-\frac{1}{\hat{y}_1}$ 相乘结果为 $\hat{y}_2$。这意味对于除第一个输出节点以外的节点进行偏导，在得到模型预测输出后，只要将其保存，就是交叉损失函数相对于其他节点的偏导结果。在 $z_1$、$z_2$ 和 $z_3$得到偏导结果后，再通过链式法则将损失误差继续往输入端传递即可。
+
+在上面的例子中，假设所预测中间值 $(z_1,z_2,z_3)$ 经过 $Softmax$ 映射后所得结果为 $(0.34,0.46,0.20)$。由于已知输入数据 $x$ 属于第一类，显然这个输出不理想而需要对模型参数进行优化。如果选择交叉熵损失函数来优化模型，则 $(z_1,z_2,z_3)$ 这一层的偏导值为 $(0.34-1,0.46,0.20)= (-0.66,0.46,0.20)$。
+
+可以看出，$Softmax$ 和交叉熵损失函数相互结合，为偏导计算带来了极大便利。偏导计算使得损失误差从输出端向输入端传递，来对模型参数进行优化。在这里，交叉熵与$Softmax$ 函数结合在一起，因此也叫 $Softmax$ 损失（Softmax with cross-entropy loss）。
+
+**softmax** 把分类输出标准化成概率分布，**cross-entropy** 刻画预测分类和真实结果概率分布之间的相似度。
+
