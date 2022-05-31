@@ -265,4 +265,4 @@ $$
 
 比如用 sigmoid，$\delta_h=o_h(1-o_h)\le \frac{1}{4}$，越乘梯度越小
 
-解决思路，将 softmax 激活函数换成 ReLU，ReLU 的导数为 1 
+解决思路，将 softmax 激活函数换成 ReLU，ReLU 的导数为 1
