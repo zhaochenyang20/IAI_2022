@@ -338,3 +338,222 @@ neural network language model，这一块描述的我真的很不理解，私以
 
 经过简化的 NNLM 模型，连续词袋模型（CBOW）or 跳词模型（Skip-Gram Model）
 
+### CBOW   模型
+
+对于第 t 个词 $w_t$，考虑其前后各 n 个词，我们假定语义信息是连续的，根据前后 n 个词能够推测出 $w_t$ 的语义信息。
+
+<img src="./pic/deep_learning/huffman.jpg" style="zoom:40%;" />
+
+也即在此图中，直接将词向量相加得到 $x_w$，当然，这里可以用同一套参数作用在词上，可以看成是一次卷积。
+
+接下来，把得到的 tensor $w_t$ 作为一棵霍夫曼树的输入，开始从霍夫曼树的顶部开始往叶节点走。
+
+<img src="./pic/deep_learning/huffman2.jpg" style="zoom:35%;" />
+
+注意，$w_t$ 对应的词所在的位置实际上是确定的（在建树时就由词频决定了），故而 $w_t$ 到达 $w_2$ 的路径是固定的。沿着这条路径，规定子节点在父节点的右侧则取 $\sigma$ ，反之则取 $1-\sigma$。
+
+- 词  $\mathrm{w}$  的最大似然函数:
+
+$$
+\prod_{i=2}^{l_{w}} p\left(d_{i}^{w} \mid x_{w}, \theta_{i-1}^{w}\right)=\prod_{i=2}^{l_{w}}\left[\sigma\left(x_{w} \cdot \theta_{i-1}^{w}\right)\right]^{1-d_{i}^{w}}\left[1-\sigma\left(x_{w} \cdot \theta_{i-1}^{w}\right)\right]^{d_{i}^{w}}
+$$
+
+
+
+- 定义损失函数（负对数似然函数）:
+
+$$
+\begin{aligned}
+\mathrm{L} &=-\log \prod_{i=2}^{l_{w}} p\left(d_{i}^{w} \mid x_{w}, \theta_{i-1}^{w}\right) \\
+&=-\sum_{i=2}^{l_{w}}\left\{\left(1-d_{i}^{w}\right) \log \left[\sigma\left(x_{w} \cdot \theta_{i-1}^{w}\right)\right]+d_{i}^{w} \log \left[1-\sigma\left(x_{w} \cdot \theta_{i-1}^{w}\right)\right]\right\}
+\end{aligned}
+$$
+
+再以此为基础，BP 更新参数。
+
+**优点**
+
+1. 每次只更新路径上的参数，也即每次只更新与该词有关的参数
+2. 越是常用的词距离根节点越近，参数越少
+
+# 词向量应用模型
+
+## TextCNN
+
+<img src="./pic/deep_learning/textCNN.jpg" style="zoom:50%;" />
+
+## RNN
+
+Recurrent Neural Network
+
+$n$ 元语法中，时间步 $t$ 的词 $w_t$ 基于前面所有词的条件概率只考虑了最近时间步的 $n-1$ 个词。如果要考虑比 $t-(n-1)$ 更早时间步的词对 $w_t$ 的可能影响，我们需要增大 $n$。但这样模型参数的数量将随之呈指数级增长。
+
+而 RNN 并非刚性地记忆所有固定长度的序列，而是通过隐藏状态来存储之前时间步的信息。
+
+我们考虑输入数据存在时间相关性的情况。假设 $\boldsymbol{X}_t \in \mathbb{R}^{n \times d}$ 是序列中时间步 $t$ 的小批量输入，$\boldsymbol{H}_t  \in \mathbb{R}^{n \times h}$ 是该时间步的隐藏变量。与多层感知机不同的是，这里我们保存上一时间步的隐藏变量 $\boldsymbol{H}_{t-1}$，并引入一个新的权重参数 $\boldsymbol{W}_{hh} \in \mathbb{R}^{h \times h}$，该参数用来描述在当前时间步如何使用上一时间步的隐藏变量。具体来说，时间步 $t$ 的隐藏变量的计算由当前时间步的输入和上一时间步的隐藏变量共同决定：
+
+$$
+\boldsymbol{H}_t = \phi(\boldsymbol{X}_t \boldsymbol{W}_{xh} + \boldsymbol{H}_{t-1} \boldsymbol{W}_{hh}  + \boldsymbol{b}_h).
+$$
+与多层感知机相比，我们在这里添加了 $\boldsymbol{H}_{t-1} \boldsymbol{W}_{hh}$  一项。由上式中相邻时间步的隐藏变量 $\boldsymbol{H}_t$和$\boldsymbol{H}_{t-1}$ 之间的关系可知，这里的隐藏变量能够捕捉截至当前时间步的序列的历史信息，就像是神经网络当前时间步的状态或记忆一样。因此，该隐藏变量也称为隐藏状态。由于隐藏状态在当前时间步的定义使用了上一时间步的隐藏状态，上式的计算是循环的。使用循环计算的网络即循环神经网络（recurrent neural network）。
+
+循环神经网络有很多种不同的构造方法。含上式所定义的隐藏状态的循环神经网络是极为常见的一种。在时间步 $t$，输出层的输出和多层感知机中的计算类似：
+
+$$
+\boldsymbol{O}_t = \boldsymbol{H}_t \boldsymbol{W}_{hq} + \boldsymbol{b}_q.
+$$
+循环神经网络的参数包括隐藏层的权重 $\boldsymbol{W}_{xh} \in \mathbb{R}^{d \times h}$、$\boldsymbol{W}_{hh} \in \mathbb{R}^{h \times h}$ 和偏差 $\boldsymbol{b}_h \in \mathbb{R}^{1 \times h}$，以及输出层的权重 $\boldsymbol{W}_{hq} \in \mathbb{R}^{h \times q}$ 和偏差 $\boldsymbol{b}_q \in \mathbb{R}^{1 \times q}$。值得一提的是，即便在不同时间步，循环神经网络也始终使用这些模型参数。因此，循环神经网络模型参数的数量不随时间步的增加而增长。
+
+![](https://tangshusen.me/Dive-into-DL-PyTorch/img/chapter06/6.2_rnn.svg)
+
+### GRU
+
+当时间步数较大或者时间步较小时，循环神经网络的梯度较容易出现衰减或爆炸。虽然裁剪梯度可以应对梯度爆炸，但无法解决梯度衰减的问题。通常由于这个原因，循环神经网络在实际中较难捕捉时间序列中时间步距离较大的依赖关系。
+
+门控循环神经网络（gated recurrent neural network）的提出，正是为了更好地捕捉时间序列中时间步距离较大的依赖关系。它通过可以学习的门来控制信息的流动。其中，门控循环单元（gated recurrent unit，GRU）是一种常用的门控循环神经网络，它引入了重置门（reset gate）和更新门（update gate）的概念，从而修改了循环神经网络中隐藏状态的计算方式。
+
+门控循环单元中的重置门和更新门的输入均为当前时间步输入 $\boldsymbol{X}_t$ 与上一时间步隐藏状态 $\boldsymbol{H}_{t-1}$，输出由激活函数为 sigmoid 函数的全连接层计算得到。
+
+![](https://tangshusen.me/Dive-into-DL-PyTorch/img/chapter06/6.7_gru_1.svg)
+
+具体来说，假设隐藏单元个数为 $h$，给定时间步 $t$ 的小批量输入 $\boldsymbol{X}_t \in \mathbb{R}^{n \times d}$（样本数为 $n$，输入个数为 $d$）和上一时间步隐藏状态 $\boldsymbol{H}_{t-1} \in \mathbb{R}^{n \times h}$。重置门 $\boldsymbol{R}_t \in \mathbb{R}^{n \times h}$ 和更新门 $\boldsymbol{Z}_t \in \mathbb{R}^{n \times h}$ 的计算如下：
+
+$$
+\begin{aligned}
+\boldsymbol{R}_t = \sigma(\boldsymbol{X}_t \boldsymbol{W}_{xr} + \boldsymbol{H}_{t-1} \boldsymbol{W}_{hr} + \boldsymbol{b}_r),\\
+\boldsymbol{Z}_t = \sigma(\boldsymbol{X}_t \boldsymbol{W}_{xz} + \boldsymbol{H}_{t-1} \boldsymbol{W}_{hz} + \boldsymbol{b}_z),
+\end{aligned}
+$$
+
+其中 $\boldsymbol{W}_{xr}, \boldsymbol{W}_{xz} \in \mathbb{R}^{d \times h}$ 和 $\boldsymbol{W}_{hr}, \boldsymbol{W}_{hz} \in \mathbb{R}^{h \times h}$ 是权重参数， $\boldsymbol{b}_r, \boldsymbol{b}_z \in \mathbb{R}^{1 \times h}$ 是偏差参数。多层感知机中介绍过，sigmoid 函数可以将元素的值变换到 0 和 1 之间。因此，重置门 $\boldsymbol{R}_t$ 和更新门 $\boldsymbol{Z}_t$ 中每个元素的值域都是 $[0, 1]$。
+
+接下来，门控循环单元将计算候选隐藏状态来辅助稍后的隐藏状态计算。我们将当前时间步重置门的输出与上一时间步隐藏状态做按元素乘法（符号为 $\odot$）。如果重置门中元素值接近 0，那么意味着重置对应隐藏状态元素为 0，即丢弃上一时间步的隐藏状态。如果元素值接近 1，那么表示保留上一时间步的隐藏状态。然后，将按元素乘法的结果与当前时间步的输入连结，再通过含激活函数 tanh的全连接层计算出候选隐藏状态，其所有元素的值域为 $[-1, 1]$。
+
+![](https://tangshusen.me/Dive-into-DL-PyTorch/img/chapter06/6.7_gru_2.svg)
+
+具体来说，时间步 $t$ 的候选隐藏状态 $\tilde{\boldsymbol{H}}_t \in \mathbb{R}^{n \times h}$ 的计算为
+
+$$
+\tilde{\boldsymbol{H}}_t = \text{tanh}(\boldsymbol{X}_t \boldsymbol{W}_{xh} + \left(\boldsymbol{R}_t \odot \boldsymbol{H}_{t-1}\right) \boldsymbol{W}_{hh} + \boldsymbol{b}_h),
+$$
+其中 $\boldsymbol{W}_{xh} \in \mathbb{R}^{d \times h}$ 和 $\boldsymbol{W}_{hh} \in \mathbb{R}^{h \times h}$ 是权重参数，$\boldsymbol{b}_h \in \mathbb{R}^{1 \times h}$ 是偏差参数。从上面这个公式可以看出，重置门控制了上一时间步的隐藏状态如何流入当前时间步的候选隐藏状态。而上一时间步的隐藏状态可能包含了时间序列截至上一时间步的全部历史信息。因此，重置门可以用来丢弃与预测无关的历史信息。
+
+最后，时间步 $t$ 的隐藏状态 $\boldsymbol{H}_t \in \mathbb{R}^{n \times h}$ 的计算使用当前时间步的更新门 $\boldsymbol{Z}_t$ 来对上一时间步的隐藏状态 $\boldsymbol{H}_{t-1}$ 和当前时间步的候选隐藏状态 $\tilde{\boldsymbol{H}}_t$ 做组合：
+
+$$
+\boldsymbol{H}_t = \boldsymbol{Z}_t \odot \boldsymbol{H}_{t-1}  + (1 - \boldsymbol{Z}_t) \odot \tilde{\boldsymbol{H}}_t.
+$$
+
+
+<div align=center>
+<img width="500" src="https://tangshusen.me/Dive-into-DL-PyTorch/img/chapter06/6.7_gru_3.svg"/>
+</div>
+<div align=center>门控循环单元中隐藏状态的计算</div>
+
+
+值得注意的是，更新门可以控制隐藏状态应该如何被包含当前时间步信息的候选隐藏状态所更新。假设更新门在时间步 $t'$ 到 $t$（$t' < t$）之间一直近似 1。那么，在时间步 $t'$ 到 $t$ 之间的输入信息几乎没有流入时间步 $t$ 的隐藏状态 $\boldsymbol{H}_t$。实际上，这可以看作是较早时刻的隐藏状态 $\boldsymbol{H}_{t'-1}$ 一直通过时间保存并传递至当前时间步 $t$。这个设计可以应对循环神经网络中的梯度衰减问题，并更好地捕捉时间序列中时间步距离较大的依赖关系。
+
+我们对门控循环单元的设计稍作总结：
+
+* 重置门有助于捕捉时间序列里短期的依赖关系；
+* 更新门有助于捕捉时间序列里长期的依赖关系。
+
+### LSTM
+
+long short-term memory，LSTM，比门控循环单元的结构复杂。
+
+LSTM 中引入了3个门，即输入门（input gate）、遗忘门（forget gate）和输出门（output gate），以及与隐藏状态形状相同的记忆细胞（某些文献把记忆细胞当成一种特殊的隐藏状态），从而记录额外的信息。
+
+与门控循环单元中的重置门和更新门一样，如图所示，长短期记忆的门的输入均为当前时间步输入 $\boldsymbol{X}_t$ 与上一时间步隐藏状态 $\boldsymbol{H}_{t-1}$，输出由激活函数为 sigmoid 函数的全连接层计算得到。如此一来，这 3 个门元素的值域均为 $[0,1]$。
+
+<div align=center>
+<img width="500" src="https://tangshusen.me/Dive-into-DL-PyTorch/img/chapter06/6.8_lstm_0.svg"/>
+</div>
+<div align=center>长短期记忆中输入门、遗忘门和输出门的计算</div>
+
+具体来说，假设隐藏单元个数为 $h$，给定时间步 $t$ 的小批量输入 $\boldsymbol{X}_t \in \mathbb{R}^{n \times d}$（样本数为 $n$，输入个数为 $d$）和上一时间步隐藏状态 $\boldsymbol{H}_{t-1} \in \mathbb{R}^{n \times h}$。
+时间步 $t$ 的输入门 $\boldsymbol{I}_t \in \mathbb{R}^{n \times h}$、遗忘门 $\boldsymbol{F}_t \in \mathbb{R}^{n \times h}$ 和输出门 $\boldsymbol{O}_t \in \mathbb{R}^{n \times h}$ 分别计算如下：
+
+$$
+\begin{aligned}
+\boldsymbol{I}_t &= \sigma(\boldsymbol{X}_t \boldsymbol{W}_{xi} + \boldsymbol{H}_{t-1} \boldsymbol{W}_{hi} + \boldsymbol{b}_i),\\
+\boldsymbol{F}_t &= \sigma(\boldsymbol{X}_t \boldsymbol{W}_{xf} + \boldsymbol{H}_{t-1} \boldsymbol{W}_{hf} + \boldsymbol{b}_f),\\
+\boldsymbol{O}_t &= \sigma(\boldsymbol{X}_t \boldsymbol{W}_{xo} + \boldsymbol{H}_{t-1} \boldsymbol{W}_{ho} + \boldsymbol{b}_o),
+\end{aligned}
+$$
+
+其中的 $\boldsymbol{W}_{xi}, \boldsymbol{W}_{xf}, \boldsymbol{W}_{xo} \in \mathbb{R}^{d \times h}$ 和 $\boldsymbol{W}_{hi}, \boldsymbol{W}_{hf}, \boldsymbol{W}_{ho} \in \mathbb{R}^{h \times h}$ 是权重参数，$\boldsymbol{b}_i, \boldsymbol{b}_f, \boldsymbol{b}_o \in \mathbb{R}^{1 \times h}$ 是偏差参数。
+
+接下来，长短期记忆需要计算候选记忆细胞 $\tilde{\boldsymbol{C}}_t$。它的计算与上面介绍的 3 个门类似，但使用了值域在 $[-1, 1]$ 的 tanh 函数作为激活函数。
+
+<div align=center>
+<img width="500" src="https://tangshusen.me/Dive-into-DL-PyTorch/img/chapter06/6.8_lstm_1.svg"/>
+</div>
+<div align=center>长短期记忆中候选记忆细胞的计算</div>
+
+具体来说，时间步 $t$ 的候选记忆细胞 $\tilde{\boldsymbol{C}}_t \in \mathbb{R}^{n \times h}$ 的计算为
+
+$$
+\tilde{\boldsymbol{C}}_t = \text{tanh}(\boldsymbol{X}_t \boldsymbol{W}_{xc} + \boldsymbol{H}_{t-1} \boldsymbol{W}_{hc} + \boldsymbol{b}_c),
+$$
+
+其中 $\boldsymbol{W}_{xc} \in \mathbb{R}^{d \times h}$ 和 $\boldsymbol{W}_{hc} \in \mathbb{R}^{h \times h}$ 是权重参数，$\boldsymbol{b}_c \in \mathbb{R}^{1 \times h}$ 是偏差参数。
+
+**记忆细胞**
+
+我们可以通过元素值域在 $[0, 1]$ 的输入门、遗忘门和输出门来控制隐藏状态中信息的流动，这一般也是通过使用按元素乘法（符号为 $\odot$）来实现的。当前时间步记忆细胞 $\boldsymbol{C}_t \in \mathbb{R}^{n \times h}$ 的计算组合了上一时间步记忆细胞和当前时间步候选记忆细胞的信息，并通过遗忘门和输入门来控制信息的流动：
+
+$$
+\boldsymbol{C}_t = \boldsymbol{F}_t \odot \boldsymbol{C}_{t-1} + \boldsymbol{I}_t \odot \tilde{\boldsymbol{C}}_t.
+$$
+
+遗忘门控制上一时间步的记忆细胞 $\boldsymbol{C}_{t-1}$ 中的信息是否传递到当前时间步，而输入门则控制当前时间步的输入 $\boldsymbol{X}_t$ 通过候选记忆细胞 $\tilde{\boldsymbol{C}}_t$ 如何流入当前时间步的记忆细胞。如果遗忘门一直近似 1 且输入门一直近似 0，过去的记忆细胞将一直通过时间保存并传递至当前时间步。这个设计可以应对循环神经网络中的梯度衰减问题，并更好地捕捉时间序列中时间步距离较大的依赖关系。
+
+<div align=center>
+<img width="500" src="https://tangshusen.me/Dive-into-DL-PyTorch/img/chapter06/6.8_lstm_2.svg"/>
+</div>
+<div align=center>长短期记忆中记忆细胞的计算</div>
+
+**隐藏状态**
+
+有了记忆细胞以后，接下来我们还可以通过输出门来控制从记忆细胞到隐藏状态 $\boldsymbol{H}_t \in \mathbb{R}^{n \times h}$ 的信息的流动：
+
+$$
+\boldsymbol{H}_t = \boldsymbol{O}_t \odot \text{tanh}(\boldsymbol{C}_t).
+$$
+
+这里的 tanh 函数确保隐藏状态元素值在 -1 到 1 之间。需要注意的是，当输出门近似 1 时，记忆细胞信息将传递到隐藏状态供输出层使用；当输出门近似 0 时，记忆细胞信息只自己保留。下图展示了长短期记忆中隐藏状态的计算。
+
+<div align=center>
+<img width="500" src="https://tangshusen.me/Dive-into-DL-PyTorch/img/chapter06/6.8_lstm_3.svg"/>
+</div>
+<div align=center>长短期记忆中隐藏状态的计算</div>
+
+### 双向循环网络
+
+对于单向的循环网络，序列前面的内容被后面的内容淹没。而且，单向循环网络都假设当前时间步是由前面的较早时间步的序列决定的，因此它们都将信息通过隐藏状态从前往后传递。有时候，当前时间步也可能由后面时间步决定。例如，当我们写下一个句子时，可能会根据句子后面的词来修改句子前面的用词。双向循环神经网络通过增加从后往前传递信息的隐藏层来更灵活地处理这类信息。
+
+<div align=center>
+<img width="300" src="https://tangshusen.me/Dive-into-DL-PyTorch/img/chapter06/6.10_birnn.svg"/>
+</div>
+<div align=center>双向循环神经网络的架构</div>
+
+下面我们来介绍具体的定义。
+
+给定时间步 $t$ 的小批量输入 $\boldsymbol{X}_t \in \mathbb{R}^{n \times d}$（样本数为 $n$，输入个数为 $d$）和隐藏层激活函数为 $\phi$。在双向循环神经网络的架构中，设该时间步正向隐藏状态为 $\overrightarrow{\boldsymbol{H}}_t  \in \mathbb{R}^{n \times h}$（正向隐藏单元个数为 $h$），反向隐藏状态为 $\overleftarrow{\boldsymbol{H}}_t  \in \mathbb{R}^{n \times h}$（反向隐藏单元个数为 $h$）。我们可以分别计算正向隐藏状态和反向隐藏状态：
+$$
+\begin{aligned}
+\overrightarrow{\boldsymbol{H}}_t &= \phi(\boldsymbol{X}_t \boldsymbol{W}_{xh}^{(f)} + \overrightarrow{\boldsymbol{H}}_{t-1} \boldsymbol{W}_{hh}^{(f)}  + \boldsymbol{b}_h^{(f)}),\\
+\overleftarrow{\boldsymbol{H}}_t &= \phi(\boldsymbol{X}_t \boldsymbol{W}_{xh}^{(b)} + \overleftarrow{\boldsymbol{H}}_{t+1} \boldsymbol{W}_{hh}^{(b)}  + \boldsymbol{b}_h^{(b)}),
+\end{aligned}
+$$
+
+其中权重 $\boldsymbol{W}_{xh}^{(f)} \in \mathbb{R}^{d \times h}$、$\boldsymbol{W}_{hh}^{(f)} \in \mathbb{R}^{h \times h}$、$\boldsymbol{W}_{xh}^{(b)} \in \mathbb{R}^{d \times h}$、$\boldsymbol{W}_{hh}^{(b)} \in \mathbb{R}^{h \times h}$ 和偏差 $\boldsymbol{b}_h^{(f)} \in \mathbb{R}^{1 \times h}$、$\boldsymbol{b}_h^{(b)} \in \mathbb{R}^{1 \times h}$ 均为模型参数。
+
+然后我们连结两个方向的隐藏状态 $\overrightarrow{\boldsymbol{H}}_t$ 和 $\overleftarrow{\boldsymbol{H}}_t$ 来得到隐藏状态 $\boldsymbol{H}_t \in \mathbb{R}^{n \times 2h}$，并将其输入到输出层。输出层计算输出 $\boldsymbol{O}_t \in \mathbb{R}^{n \times q}$（输出个数为 $q$）：
+
+$$
+\boldsymbol{O}_t = \boldsymbol{H}_t \boldsymbol{W}_{hq} + \boldsymbol{b}_q,
+$$
+其中权重 $\boldsymbol{W}_{hq} \in \mathbb{R}^{2h \times q}$ 和偏差 $\boldsymbol{b}_q \in \mathbb{R}^{1 \times q}$ 为输出层的模型参数。不同方向上的隐藏单元个数也可以不同。
+
