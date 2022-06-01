@@ -231,7 +231,7 @@ $$
 \min _{\alpha} \frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_{i} \alpha_{j} y_{i} y_{j}\left(x_{i} \cdot x_{j}\right)-\sum_{i=1}^{N} \alpha_{i}\\\\s.t. \sum_{i=1}^{N} \alpha_{i} y_{i}=0\\\\0 \leqslant \alpha_{i} \leqslant C, \quad i=1,2, \cdots, N
 $$
 求得最优解 $\alpha^{*}=\left(\alpha_{1}^{*}, \alpha_{2}^{*}, \cdots, \alpha_{N}^{*}\right)^{\mathrm{T}}$.
- 
+
 (2) 计算原始问题解，计算 $w^{*}=\sum_{i=1}^{N} \alpha_{i}^{*} y_{i} x_{i}$
 
 选择 $\alpha^{*}$ 的一个分量 $\alpha_{j}^{*}$ 适合条件 $0<\alpha_{j}^{*}<C$, 计算
