@@ -11,8 +11,8 @@
 ## 文档分工
 
 - `Readme.md`
-- `deep learning.md` —— Eren
-- `machine learning.md`—— Saltyp0rridge
+- `deep learning.md` —— Eren（完结）
+- `machine learning.md`—— Saltyp0rridge（完结）
 - `search.md` —— Monoxide-Chen
 
 - `exam.md` —— tjy20
