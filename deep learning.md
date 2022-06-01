@@ -310,5 +310,31 @@ $$
 - 可根据需要指定向量的大小。
 - 一般语义相近的词在空间中分布相近。
 
-## 语言模型
+## NNLM 模型
+
+neural network language model，这一块描述的我真的很不理解，私以为和 Viterbi algorithm 那章一样，希望通过神经网络来学习语句内词语的联系，也即前 n-1 个词确定时，第 n 个词的分布概率。
+
+<img src="./pic/deep_learning/NNLM2.jpg" style="zoom:30%;" />
+
+<img src="./pic/deep_learning/NNLM.jpg" style="zoom:30%;" />
+
+结合这两张图，还是蛮好理解的。
+
+### 如何训练
+
+1. 通过让联合概率最大化估计概率的方法称作最大似然估计
+
+> 联合概率分布一般含有参数，通过最大似然方法估计该联合概率的参数，对于神经网络语言模型就是估计网络的参数值
+
+<img src="./pic/deep_learning/mlp.jpg" style="zoom:40%;" />
+
+### 存在的问题
+
+1. softmax 计算复杂度高
+2. 输出层神经元个数多，等于词表长度 k
+3. 全连接层参数较多
+
+## word2vec 模型
+
+经过简化的 NNLM 模型，连续词袋模型（CBOW）or 跳词模型（Skip-Gram Model）
 
