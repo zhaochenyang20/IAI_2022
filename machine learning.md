@@ -122,7 +122,7 @@ $$
 $$
 \gamma=\frac{2}{\|w\|}
 $$
-它被称为间隔**(margin)**.
+它被称为间隔**(margin)**。
 
 ![](./pic/machine_learning/svm2.png)
 
@@ -152,7 +152,7 @@ $$
 
 由偏导为 0 可以得到如下条件
 $$
-\min _{w, b} L(w, b, \alpha)=-\frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_{i} \alpha_{j} y_{i} y_{j}\left(x_{i} \cdot x_{j}\right)+\sum_{i=1}^{N} \alpha_{i}
+\min _{w, b} L(w, b, \alpha)=-\frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_{i} \alpha_{j} y_{i} y_{j}\left<x_{i} \cdot x_{j}\right>+\sum_{i=1}^{N} \alpha_{i}
 $$
 再求对$\alpha$的极大，有：
 $$
@@ -198,6 +198,13 @@ f(x)=\operatorname{sign}\left(w^{*} \cdot x+b^{*}\right)
 $$
 
 **考试的话就是考这种题，务必熟悉公式和流程，手算对偶算法**
+
+### 例题
+
+正例: $\mathbf{x}_{1}=(3,3)^{\mathrm{T}}, \mathbf{x}_{2}=(4,3)^{\mathrm{T}}$, 负例: $x_{3}=(1,1)^{\mathrm{T}}$
+
+1. 支持向量机算法会给每个点一个非负的标量系数 $\alpha$，支持向量的系数为正，非支持向量的系数为 0。因此在求解过程中，依靠偏微分方法解出的极值点可能不符合题设，需要舍弃，考虑边界。
+2. 
 
 ## 线性支持向量机与软间隔最大化
 
