@@ -1,6 +1,17 @@
+---
+categories: 课程
+title: 深度学习基础
+tags:
+	- 2022春季
+	- 科研
+description: 学不完了，学不完了...
+---
+
 # readme
 
 这一章马老师讲的很玄学，尽我所能写一写…
+
+Credit to [Eren Zhao](https://zhaochenyang20.github.io/) and [saltyp0rridge](https://saltyp0rridge.github.io/).
 
 # What is neural network？
 
