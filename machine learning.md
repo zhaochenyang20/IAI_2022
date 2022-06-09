@@ -104,29 +104,29 @@ $$
 
 ![](./pic/machine_learning/svm1.png)
 
-直观上看，应该去找位于两类训练样本“正中间”的划分超平面，因为该划分超平面对训练样本局部扰动的“容忍”性最好。例如，由于训练集的局限性或噪声的因素，训练集外的样本可能比图中的训练样本更接近两个类的分隔界，这将使许多划分超平面出现错误，而超平面受影响最小。换言之，这个划分超平面所产生的分类结果是最鲁棒的，对未见示例的泛化能力最强。
+直观上看，应该去找位于两类训练样本“正中间”的划分超平面，因为该划分超平面对训练样本局部扰动的“容忍”性最好。例如，由于训练集的局限性或噪声的因素，训练集外的样本可能比图中的训练样本更接近两个类的分隔界，这将使许多其他划分超平面出现错误，而居中的超平面受影响最小。换言之，这个划分超平面所产生的分类结果是最鲁棒的，对未见示例的泛化能力最强。
 
 在样本空间中, 划分超平面可通过如下线性方程来描述:
 $$
 \boldsymbol{w}^{\mathrm{T}} \boldsymbol{x}+b=0
 $$
-其中 $\boldsymbol{w}=\left(w_{1} ,w_{2}  \cdots  w_{d}\right)$ 为法向量, 决定了超平面的方向; b 为位移项, 决定了超平面与原点之间的距离。显然, 划分超平面可被法向量 $\boldsymbol{w}$ 和位移 b 确定,下面我们将其记为 $(\boldsymbol{w}, b)$。样本空间中任意点 $\boldsymbol{x}$ 到超平面 $(\boldsymbol{w}, b)$ 的距离可写为:
+其中 $\boldsymbol{w}=\left(w_{1} ,w_{2}  \cdots  w_{d}\right)$ 为法向量，决定了超平面的方向； b 为位移项，决定了超平面与原点之间的距离。显然，划分超平面可被法向量 $\boldsymbol{w}$ 和位移 b 确定，面我们将其记为 $(\boldsymbol{w}, b)$。样本空间中任意点 $\boldsymbol{x}$ 到超平面 $(\boldsymbol{w}, b)$ 的距离可写为：
 $$
 r=\frac{\left|\boldsymbol{w}^{\mathrm{T}} \boldsymbol{x}+b\right|}{\|\boldsymbol{w}\|}
 $$
-假设超平面 $(\boldsymbol{w}, b)$ 能将训练样本正确分类, 即对于 $\left(\boldsymbol{x}_{i}, y_{i}\right) \in D$, 若 $y_{i}= +1$, 则有 $\boldsymbol{w}^{\mathrm{T}} \boldsymbol{x}_{i}+b>0$; 若 $y_{i}=-1$, 则有 $\boldsymbol{w}^{\mathrm{T}} \boldsymbol{x}_{i}+b<0$。令
+假设超平面 $(\boldsymbol{w}, b)$ 能将训练样本正确分类，即对于 $\left(\boldsymbol{x}_{i}, y_{i}\right) \in D$，若 $y_{i}= +1$，则有 $\boldsymbol{w}^{\mathrm{T}} \boldsymbol{x}_{i}+b>0$；若 $y_{i}=-1$，则有 $\boldsymbol{w}^{\mathrm{T}} \boldsymbol{x}_{i}+b<0$。令
 $$
 \left\{\begin{array}{ll}\boldsymbol{w}^{\mathrm{T}} \boldsymbol{x}_{i}+b \geqslant+1, & y_{i}=+1 \\\boldsymbol{w}^{\mathrm{T}} \boldsymbol{x}_{i}+b \leqslant-1, & y_{i}=-1\\\end{array}\right.
 $$
-如图所示, **距离超平面最近的这几个训练样本点使式的等号成立**, 它们被称为支持向量 (support vector), 两个异类支持向量到超平面的距离之和为
+如图所示，**距离超平面最近的这几个训练样本点使式的等号成立**，它们被称为支持向量 (support vector), 两个异类支持向量到超平面的距离之和为
 $$
 \gamma=\frac{2}{\|w\|}
 $$
-它被称为间隔**(margin)**.
+它被称为间隔**(margin)**。
 
 ![](./pic/machine_learning/svm2.png)
 
-欲找到具有 “最大间隔” (maximum margin)的划分超平面, 也就是要找到能满足式中约束的参数 $\boldsymbol{w}$ 和 b, 使得 $\gamma$ 最大, 即
+欲找到具有 “最大间隔” (maximum margin)的划分超平面，也就是要找到能满足式中约束的参数 $\boldsymbol{w}$ 和 b，使得 $\gamma$ 最大，即
 $$
 \begin{aligned}\max _{\boldsymbol{w}, b} & \frac{2}{\|\boldsymbol{w}\|} \\\text { s.t. } & y_{i}\left(\boldsymbol{w}^{\mathrm{T}} \boldsymbol{x}_{i}+b\right) \geqslant 1, \quad i=1,2, \ldots, m .\\\end{aligned}
 $$
@@ -136,9 +136,9 @@ $$
 
 ### 对偶方法
 
-为了求解线性可分支持向量机的最优化问题，将它作为原始最优化问题，应用拉格朗日对偶性(参阅附录C) ，通过求解对偶问题(dual problem) 得到原始问题(primal problem) 的最优解，这就是线性可分支持向量机的对偶算法(dual algorithm)。这样做的优点，一是对偶问题往往更容易求解二是自然引入核函数，进而推广到非线性分类问题。
+为了求解线性可分支持向量机的最优化问题，将它作为原始最优化问题，应用拉格朗日对偶性(参阅附录C) ，通过求解对偶问题(dual problem) 得到原始问题(primal problem) 的最优解，这就是线性可分支持向量机的对偶算法(dual algorithm)。这样做的优点，一是对偶问题往往更容易求解；二是自然引入核函数，进而推广到非线性分类问题。
 
-首先构建拉格朗日函数 (Lagrange function)。为此, 对每一个不等式约束引进拉格朗日乘子 $(Lagrange multiplier) \alpha_{i} \geqslant 0, i=1,2, \cdots, N$ 定义拉格朗日函数:
+首先构建拉格朗日函数 (Lagrange function)。为此，对每一个不等式约束引进拉格朗日乘子 $(Lagrange multiplier)\quad \alpha_{i} \geqslant 0, i=1,2, \cdots, N$  定义拉格朗日函数:
 $$
 L(w, b, \alpha)=\frac{1}{2}\|w\|^{2}-\sum_{i=1}^{N} \alpha_{i} y_{i}\left(w \cdot x_{i}+b\right)+\sum_{i=1}^{N} \alpha_{i}
 $$
@@ -148,11 +148,11 @@ $$
 $$
 \max _{\alpha} \min _{w, b} L(w, b, \alpha)
 $$
-所以, 为了得到对偶问题的解, 需要先求 $L(w, b, \alpha)$ 对 w, b 的极小, **再求对 $\alpha$ 的极大**。
+所以，为了得到对偶问题的解，需要先求 $L(w, b, \alpha)$ 对 w, b 的极小，**再求对 $\alpha$ 的极大**。
 
-由偏导为0可以得到如下条件
+由偏导为 0 可以得到如下条件
 $$
-\min _{w, b} L(w, b, \alpha)=-\frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_{i} \alpha_{j} y_{i} y_{j}\left(x_{i} \cdot x_{j}\right)+\sum_{i=1}^{N} \alpha_{i}
+\min _{w, b} L(w, b, \alpha)=-\frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_{i} \alpha_{j} y_{i} y_{j}\left<x_{i} \cdot x_{j}\right>+\sum_{i=1}^{N} \alpha_{i}
 $$
 再求对$\alpha$的极大，有：
 $$
@@ -198,6 +198,13 @@ f(x)=\operatorname{sign}\left(w^{*} \cdot x+b^{*}\right)
 $$
 
 **考试的话就是考这种题，务必熟悉公式和流程，手算对偶算法**
+
+### 例题
+
+正例: $\mathbf{x}_{1}=(3,3)^{\mathrm{T}}, \mathbf{x}_{2}=(4,3)^{\mathrm{T}}$, 负例: $x_{3}=(1,1)^{\mathrm{T}}$
+
+1. 支持向量机算法会给每个点一个非负的标量系数 $\alpha$，支持向量的系数为正，非支持向量的系数为 0。因此在求解过程中，依靠偏微分方法解出的极值点可能不符合题设，需要舍弃，考虑边界。
+2. 
 
 ## 线性支持向量机与软间隔最大化
 
