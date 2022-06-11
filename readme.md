@@ -14,7 +14,6 @@
 - `deep learning.md` —— Eren（完结）
 - `machine learning.md`—— Saltyp0rridge（完结）
 - `graph search.md` —— Monoxide（完结）
-
 - `exam.md` —— tjy20
 
 # 编写须知
