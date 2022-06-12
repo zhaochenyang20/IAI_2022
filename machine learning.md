@@ -507,7 +507,7 @@ $$
 $$
 H(D \mid A)=\sum_{i=1}^{n} \frac{\left|D_{i}\right|}{|D|} H\left(D_{i}\right)=-\sum_{i=1}^{n} \frac{\left|D_{i}\right|}{|D|} \sum_{k=1}^{K} \frac{\left|D_{i k}\right|}{\left|D_{i}\right|} \log _{2} \frac{\left|D_{i k}\right|}{\left|D_{i}\right|}
 $$
-先对每一类积特征，再对每个分类积分。
+**先积类别，再积特征！**
 
 #### 信息增益算法
 
