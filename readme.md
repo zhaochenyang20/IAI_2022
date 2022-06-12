@@ -11,10 +11,9 @@
 ## 文档分工
 
 - `Readme.md`
-- `deep learning.md` —— Eren
-- `machine learning.md`—— Saltyp0rridge
-- `search.md` —— Monoxide-Chen
-
+- `deep learning.md` —— Eren（完结）
+- `machine learning.md`—— Saltyp0rridge（完结）
+- `graph search.md` —— Monoxide（完结）
 - `exam.md` —— tjy20
 
 # 编写须知
@@ -31,3 +30,5 @@
 + 特殊集合（如自然数集、实数集）的字体请使用 `$\mathbb{}$`，如 $\mathbb{R}$、$\mathbb{N}$。
 + 括号内为分式等内容时，请使用自适应高度括号 `$\left(\right)$`，如 $\left(\dfrac{1}{2}\right)^n$。请不要直接使用 `$()$`，如 $(\dfrac{1}{2})^n$。
 + 公式内请不要出现汉字，出现英文单词时请使用正体。
++ 数字、字母、公式、英文与前后的汉字之前各留一个空格。例如，在第 k 个根节点。
++ 中文之间请使用中文标点。
