@@ -261,8 +261,7 @@ $$
 
 ## 动态规划
 
-### viterbi算法
-
+### viterbi 算法
 $$
 Q(W_{i,\ j})=\mathop{\min}\limits_{k}(Q(W_{i-1,\ k})+D(W_{i-1,\ k},\ W_{i,\ j})) ,\quad i \neq0\\
 $$
