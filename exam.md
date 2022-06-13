@@ -29,6 +29,10 @@
 > A 和 A* 算法
 >
 > 易错：A* 算法结束条件 (目标点在OPEN表中第一个)
+>
+> <img src="./pic/exam/1-1.PNG" style="zoom:50%;" />
+>
+> <img src="./pic/exam/1-2.PNG" style="zoom:50%;"/>
 
 - CH2
 
@@ -46,26 +50,53 @@
 >
 > 掌握实现方法
 
+
+
 - CH3
 
 >  alpha-beta剪枝
 >
-> 易错：注意找全所有祖先节点（不只是父节点），最佳走步只能标一步
+>  易错：注意找全所有祖先节点（不只是父节点），最佳走步只能标一步
 >
-> 蒙特卡洛树搜索
+>  蒙特卡洛树搜索
 >
-> 重点是选择过程
+>  重点是选择过程
 >
-> AlphaGo / AlphaGo Zero
+>  AlphaGo / AlphaGo Zero
 >
-> 大概懂就行：两个网络、结合蒙特卡洛
+>  大概懂就行：两个网络、结合蒙特卡洛
+>
+>  <img src="./pic/exam/3-1.png" style="zoom:50%;"/>
+>
+>  <img src="./pic/exam/3-2.png" style="zoom:50%;"/>
+>
+>  <img src="./pic/exam/3-3.PNG" style="zoom:50%;"/>
 
 - CH4
 
 >  SVM
 >
-> 会用对偶的方法求就行（ppt上例题）
+>  会用对偶的方法求就行（ppt上例题）
 >
-> 决策树
+>  决策树
 >
-> 给定数据，会用ID3/C4.5建树
+>  给定数据，会用ID3/C4.5建树
+>
+>  **SVM**例题见最上方2021回忆版
+>
+>  **ID3决策树**
+>
+>  <img src="./pic/exam/4-1.PNG" style="zoom:50%;"/>
+>
+>  <img src="./pic/exam/4-2.png" style="zoom:50%;"/>
+>
+>  <img src="./pic/exam/4-3.png" style="zoom:50%;"/>
+>
+>  <img src="./pic/exam/4-4.png" style="zoom:50%;"/>
+
+
+
+==注：==
+
+==按马老师上课所说，第二章和第三章设计神经网络的部分不会单独出算法题，而应该是类似2021回忆版的最后一题，老师会出一个带有点创新的思考题，用到神经网络的知识。==
+
