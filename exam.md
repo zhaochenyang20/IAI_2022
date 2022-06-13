@@ -30,9 +30,9 @@
 >
 > 易错：A* 算法结束条件 (目标点在OPEN表中第一个)
 >
-> <img src="./pic/exam/1-1.png" style="zoom:70%" />
+> <img src="./pic/exam/1-1.PNG" style="zoom:50%;" />
 >
-> <img src="./pic/exam/1-2.png" style="zoom:70%"/>
+> <img src="./pic/exam/1-2.PNG" style="zoom:50%;"/>
 
 - CH2
 
@@ -68,9 +68,9 @@
 >
 >  <img src="./pic/exam/3-1.png" style="zoom:50%;"/>
 >
->  <img src="./pic/exam/3-2.png" style="zoom:50%"/>
+>  <img src="./pic/exam/3-2.png" style="zoom:50%;"/>
 >
->  <img src="./pic/exam/3-3.png" style="zoom:70%;"/>
+>  <img src="./pic/exam/3-3.PNG" style="zoom:50%;"/>
 
 - CH4
 
@@ -86,13 +86,13 @@
 >
 >  **ID3决策树**
 >
->  <img src="./pic/exam/4-1.png" style="zoom:70%;"/>
+>  <img src="./pic/exam/4-1.PNG" style="zoom:50%;"/>
 >
 >  <img src="./pic/exam/4-2.png" style="zoom:50%;"/>
 >
 >  <img src="./pic/exam/4-3.png" style="zoom:50%;"/>
 >
->  <img src="./pic/exam/4-4.png" style="zoom:70%;"/>
+>  <img src="./pic/exam/4-4.png" style="zoom:50%;"/>
 
 
 
