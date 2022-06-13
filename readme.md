@@ -1,4 +1,4 @@
-# 2042 IAI Review
+## 2042 IAI Review
 
 ## readme
 
@@ -6,13 +6,16 @@
 
 贵系 2042 年春季人智导复习仓库，~~都 2042 年了贵系还给咱讲 $\alpha-\beta$ 剪枝呢！~~本学期人智导课程相对 2021 年少了部分内容，加之线上考试充满不确定性，（马老师曾经说可能会更改考试风格，从考基于手跑算法的考大题改成基于考小题），遂决定组队复习人智导。（后来通知还是只考大题）
 
-参考资料主要为计 8 年级白钰卓学姐和邱可玥学姐的笔记、马老师的课堂 PPT、动手学深度学习、tjy & Eren 的课堂笔记等等，其余参考资料会在每一章复习的具体段落给出。
+参考资料主要为计 8 年级白钰卓学姐和邱可玥学姐的笔记、马老师的课堂 PPT、动手学深度学习、tjy & Eren 的课堂笔记等等，其余参考资料会在每一章复习的具体段落给出
+
+友情 repo：lambda 的[模拟题生成器](https://github.com/Btlmd/IAI_Gen)
 
 ## 文档分工
 
 - `Readme.md`—— Eren
 - `deep learning.md` —— Eren（完结）
-- `machine learning.md`—— Saltyp0rridge（完结）
+- `adversarial search` —— Eren（在写了在写了）
+- `machine learning.md`—— Saltyp0rridge（完结），Eren 负责修订（完成）
 - `graph search.md` —— Monoxide（完结）, Eren 负责修订（完成）
 - `exam.md` —— tjy20（已摆烂）
 - `note.md`—— ylc20（已完成）
