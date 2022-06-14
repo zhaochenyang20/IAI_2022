@@ -176,7 +176,7 @@ $$
 
 注意，用选出的 OPEN 表 $f$ 最小值节点来更新的时候，例如下图用 $B$ 更新 $A$，$A $ 会被更新为 $(g_b+distance(b,a)+h(a))$，而不是直接用 $f(b)+distance(b,a)$
 
-<img src="pic/graph_search/renew.JPG" alt="renew" style="zoom:50%;" />
+<img src="pic/graph_search/renew.jpg" alt="renew" style="zoom:50%;" />
 
 ## Dijkstra 与 BFS ( Best-First Search)
 
@@ -240,7 +240,7 @@ $$
 & 2 \quad \mathbf{LOOP: \ if} \ OPEN=(\ ) \ \mathbf{then\ exit(fail)}  \\
 & 3 \quad \quad NEST:=\{n_i∣f(n_i)＜f_m,\ n_i\in OPEN\}\\
 & 4 \quad \quad \mathbf{if} \ NEST\neq\{\ \} \ \mathbf{then \  } n:=n(\min g_i)\\
-& \quad \quad \quad \quad \quad \quad \quad \quad \quad \ \   \mathbf{else} \ n:=First(OPEN),\ f_m:=f(n)\\
+& \quad \quad \quad \quad \quad \quad \quad \quad \quad \ \   \mathbf{\{else} \ n:=First(OPEN),\ f_m:=f(n)\}\\
 & 5 \quad \quad \mathbf{if} \ n=goal \ \mathbf{then \  exit(success)}\\
 & 6 \quad \quad Remove(n,\ OPEN),\ Add(n,\ CLOSED)\\
 & 7 \quad \quad Expand(n)\rightarrow{m_i},\ f(n,\ m_i):=g(n,\ m_i)+h(m_i),\ G:=Add(m_i,\ G) \\
@@ -256,11 +256,11 @@ $$
 
 ##### 算法解释
 
-如果你未看懂算法，请看接下来的解释：
+如果你未看懂算法，请看接下来的解释：µ
 
 - 第 1 步，初始化 $f_m$ 为 0，第一次令 $f_m=f(s)$，并计算所有扩展节点的 $f$
-- 第 3 步，获取 NEST 集合，即满足 $f＜f_m$ 的节点集合
-- 第 4 步，NEST 不空时，取 NEST 中 $g$ 最小者作为当前节点，否则取 OPEN 的第一个当前节点
+- 第 3 步，获取 NEST 集合，即满足 $f＜f_m$ 的节点集合（**注意是严格小于**）
+- 第 4 步，NEST 不空时，取 NEST 中 $g$ 最小者作为当前节点 $k$，否则取 OPEN 的第一个当前节点，并且用 $f(k)$ 更新 $f(m)$
 - 其余和 A\* 算法一致
 
 ## 动态规划
