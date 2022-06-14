@@ -27,7 +27,7 @@ Credit to [Eren Zhao](https://zhaochenyang20.github.io/) and [saltyp0rridge](htt
 
 ## 结构与激活函数
 
-<img src="./pic/deep_learning/nearun.jpg" style="zoom:25%;" />
+<img src="./pic/deep_learning/nearun.jpg" style="zoom:45%;" />
 
 通过增设 0 项可以统一形式，不必单独写偏置量。
 
@@ -37,7 +37,7 @@ Credit to [Eren Zhao](https://zhaochenyang20.github.io/) and [saltyp0rridge](htt
 
 优点：适合于潜在行为是线性（与线性回归相似）的任务。
 
-缺点：无法提供非线性映射，当多层网络使用identity激活函数时，整个网络就相当于一个单层模型。
+缺点：无法提供非线性映射，当多层网络使用 identity 激活函数时，整个网络就相当于一个单层模型。
 
 ### sigmoid
 
@@ -81,7 +81,7 @@ $$
 $$
 
 
-函数图形如 **图4** 所示：
+函数图形如**图 4** 所示：
 
 <img src="https://paddlepedia.readthedocs.io/en/latest/_images/tanh.jpg" alt="tanh" style="zoom:33%;" />
 
@@ -111,7 +111,7 @@ $$
 
 优点：
 1. 收敛速度快；
-2. 相较于 $sigmoid$ 和 $tanh$ 中涉及了幂运算，导致计算复杂度高， ReLU可以更加简单的实现；
+2. 相较于 $sigmoid$ 和 $tanh$ 中涉及了幂运算，导致计算复杂度高， ReLU 可以更加简单的实现；
 3. 当输入 $x>=0$ 时，ReLU 的导数为常数，这样可有效缓解梯度消失问题；
 4. 当 $x<0$ 时，ReLU 的梯度总是 $0$，提供了神经网络的稀疏表达能力；
 
@@ -142,24 +142,24 @@ $$
 
 ### 梯度下降法
 
-<img src="./pic/deep_learning/grand.jpg" style="zoom:25%;" />
+<img src="./pic/deep_learning/grand.jpg" style="zoom:35%;" />
 
 1. 梯度是指增长最快的方向，故而需要加上梯度的相反数
 2. 在多维情况下，梯度计算较为复杂，可以改为偏导数
 
 ### 手动计算
 
-<img src="./pic/deep_learning/gradient.jpg" style="zoom:25%;" />
+<img src="./pic/deep_learning/gradient.jpg" style="zoom:55%;" />
 
 这张图对于 sigmoid 情况下的梯度下降说的很清楚。
 
-<img src="./pic/deep_learning/gradient3.jpg" style="zoom:25%;" />
+<img src="./pic/deep_learning/gradient3.jpg" style="zoom:55%;" />
 
 注意，这里 k 是 j 的后续，而不前驱，也即右图中 k 在 j 上方。 
 
 ### 梯度下降算法
 
-<img src="./pic/deep_learning/gradient2.jpg" style="zoom:25%;" />
+<img src="./pic/deep_learning/gradient2.jpg" style="zoom:45%;" />
 
  **批量梯度下降**
 
@@ -209,7 +209,7 @@ MBGD 是训练神经网络时的常用方法，而且通常即使实际上使用
 
 误差反向传播算法，给出了一种计算偏导数的方法。
 
-<img src="./pic/deep_learning/BP.jpg" style="zoom:25%;" />
+<img src="./pic/deep_learning/BP.jpg" style="zoom:55%;" />
 
 ## cross entropy
 
