@@ -14,11 +14,11 @@
 
 - `Readme.md`—— Eren
 - `deep learning.md` —— Eren（完结）
-- `adversarial search` —— Eren（在写了在写了）
+- `adversarial search part1.md` —— Eren（完结）
 - `machine learning.md`—— Saltyp0rridge（完结），Eren 负责修订（完成）
 - `graph search.md` —— Monoxide（完结）, Eren 负责修订（完成）
 - `exam.md` —— tjy20（已摆烂）
-- `note.md`—— ylc20（已完成）
+- `adversarial search part2.md`—— tjy20（手写），ylc20（手动转 markdown，完结）
 
 # 编写须知
 
