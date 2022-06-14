@@ -132,3 +132,40 @@ flowchart TD
 # 决策树
 
 ![](./pic/exam/decision.jpg)
+
+# 设计神经网络
+
+## Bi-LSTM
+
+![LSTM](https://image.jiqizhixin.com/uploads/editor/df55a9f8-422e-4252-a768-9cf4f49bbb56/1540354954203.png)
+
+- 双向 LSTM 分类网络的模型结果如上图。前向传播的流程为：将一批长度统一且标记化的句子输入网络，依次经过：
+
+1. 嵌入层：将每个表示单词的自然数映射为指定长度的向量，即用向量表示单词。
+2. 双向双层 LSTM 层：接收某个 batch 的词向量组成的序列，每个 LSTM 单元在两个方向上分别产生自己的隐藏状态。最终只用了最后一层（第二层）两个方向上传播的各自的最后一个单元的隐藏状态作为下一层的输入。
+3. 线性分类层：由两层网络构成，接收上述 LSTM 层产生的两个隐藏状态直接拼接起来的向量（维数变为隐藏状态维数的 2 倍）作为输入，经过两层线性层输出维数等于分类类别数的向量，表示对类别的预测结果。
+4. 在 Bi-LSTM 的基础上，将 LSTM 单元替换为 GRU 单元即可得到基于 LSTM 变种 [GRU](https://towardsdatascience.com/understanding-gru-networks-2ef37df6c9be) 实现的 RNN，此处不再赘述。
+
+![GRU](https://zhaochenyang20.github.io/pic/lecture/2022_spring/IAI/GRU.svg)
+
+## Text-CNN
+
+<img src="https://zhaochenyang20.github.io/pic/lecture/2022_spring/IAI/CNN.jpg" alt="CNN" style="zoom:50%;" />
+
+- 依据[参考文献](https://arxiv.org/abs/1408.5882)中的模型搭建 Text-CNN 模型。前向传播流程如下：
+
+1. 嵌入层：将每个表示单词的自然数映射为指定长度的向量，即用向量表示单词。
+2. 一维多通道多卷积核卷积层：将嵌入层得到的数据视为一批多通道的一维张量；一维张量的长度为对齐后的句子长度，通道数为词向量的数。用指定数量与大小的卷积核与输入数据做多通道多卷积核卷积，得到多通道的一维输出特征。用宽度为3、5、7的卷积核分别做三次卷积。
+3. 池化层：对卷积结果进行 activate, Dropout, max pooling。
+4. 线性层：将池化后的卷积结果拼接在一起，得到长度为所有卷积输出通道数之和的张量，再经过一层线性层得到表示类别标签预测的向量。
+
+## MLP
+
+<img src="https://zhaochenyang20.github.io/pic/lecture/2022_spring/IAI/MLP.jpg" alt="MLP" style="zoom:50%;" />
+
+使用 MLP 作为 baseline 。模型示意图如上，前向传播大致流程如下：
+
+1. 嵌入层：将每个表示单词的自然数映射为指定长度的向量，即用向量表示单词。
+2. 线性层1：接收一批将句子中的词向量直接拼接起来得到的张量为输入，输出指定大小的张量，然后进行 Batch Normalization, Activation, Dropout。
+3. 线性层2：输出表示类别标签预测的向量。
+
