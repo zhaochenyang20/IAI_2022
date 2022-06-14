@@ -176,7 +176,7 @@ $$
 
 注意，用选出的 OPEN 表 $f$ 最小值节点来更新的时候，例如下图用 $B$ 更新 $A$，$A $ 会被更新为 $(g_b+distance(b,a)+h(a))$，而不是直接用 $f(b)+distance(b,a)$
 
-<img src="pic/graph_search/renew.JPG" alt="renew" style="zoom:50%;" />
+<img src="pic/graph_search/renew.jpg" alt="renew" style="zoom:50%;" />
 
 ## Dijkstra 与 BFS ( Best-First Search)
 
