@@ -2,7 +2,7 @@
 
 ## readme
 
-**Credit to Eren, Saltyp0rridge, MonoxideChen, tjy20, ylc20**
+**Credit to Eren, Saltyp0rridge, Monoxide Chen, tjy20, ylc20**
 
 贵系 2042 年春季人智导复习仓库，~~都 2042 年了贵系还给咱讲 $\alpha-\beta$ 剪枝呢！~~本学期人智导课程相对 2021 年少了部分内容，加之线上考试充满不确定性，（马老师曾经说可能会更改考试风格，从考基于手跑算法的考大题改成基于考小题），遂决定组队复习人智导。（后来通知还是只考大题）
 
