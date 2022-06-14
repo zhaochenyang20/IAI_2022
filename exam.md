@@ -9,8 +9,10 @@
     样本：正例： $\boldsymbol{x_1}=(0, 0)^T$ ；负例： $\boldsymbol{x_2}=(1, 1)^T$ ， $\boldsymbol{x_3}=(-1, -1)^T$ 。
 
     核函数： $K(\boldsymbol{x}, \boldsymbol{y}) = (1 + \boldsymbol{x}^T \boldsymbol{y})^2$ 。
-    
+
     请求解 SVM 参数，并给出 $(0, 1)^T$ 的分类。
+
+<img src="./pic/exam/answer 1.jpg" style="zoom:50%;" />
 
 4. （1）模拟退火。（温度固定，类似往年题。）
 
