@@ -19,6 +19,7 @@
 - `graph search.md` —— Monoxide（完结）, Eren 负责修订（完成）
 - `exam.md` —— tjy20（已摆烂）
 - `adversarial search part2.md`—— tjy20（手写），ylc20（手动转 markdown，完结）
+- `IAI_note/c7w_final_preparation.md`—— c7w（已完结）
 
 # 编写须知
 
