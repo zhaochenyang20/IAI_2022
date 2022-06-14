@@ -517,7 +517,7 @@ $$
 
 （1）计算数据集 D 的经验熵 H(D)
 $$
-H(D)=-\sum_{k=1}^{K} \frac{\left|C_{k}\right|}{|D|} \log _{2} \frac{\left|C_{k}\right|}{|D|}
+H(D)=-\sum_{k=1}^{K} \frac{\left|D_{k}\right|}{|D|} \log _{2} \frac{\left|D_{k}\right|}{|D|}
 $$
 （2）计算特征 A 对数据集 D 的经验条件熵 $H(D \mid A)$
 $$
@@ -538,6 +538,23 @@ g_{R}(D, A)=\frac{g(D, A)}{H_A(D)}=\frac{H(D)-H(D \mid A)}{H_A(D)}
 $$
 
 其实这里定义了三种熵，如下图所示：
+
+<img src="./pic/exam/4-1.png" style="zoom:53%;" />
+
+以下用 A 来表示属性（年龄，有无工作，有无房产这些是属性），用 D 表示训练集，训练集被类别分为了若干个类，比如上图的是与否。
+
+$H(D)$ 是经验熵，也即对**训练集被类别分成的若干个类**做熵。
+$$
+H(D)=-\sum_{i=1}^{K} \frac{\left|D_{i}\right|}{|D|} \log _{2} \frac{\left|D_{i}\right|}{|D|}
+$$
+$H_A(D)$ 是 A 属性对训练集 D 的经验熵，也即对**训练集被 A 属性分成的若干个类**做熵。
+$$
+H_A(D)=-\sum_{i=1}^{K} \frac{\left|D_{A_i}\right|}{|D|} \log _{2} \frac{\left|D_{A_i}\right|}{|D|}
+$$
+$H(D \mid A)$ 是特征 A 对数据集 D 的经验条件熵，也即先积属性，再积特征。 
+$$
+H(D \mid A)=\sum_{i=1}^{n} \frac{\left|D_{i}\right|}{|D|} H\left(D_{i}\right)=-\sum_{i=1}^{n} \frac{\left|D_{i}\right|}{|D|} \sum_{k=1}^{K} \frac{\left|D_{i k}\right|}{\left|D_{i}\right|} \log _{2} \frac{\left|D_{i k}\right|}{\left|D_{i}\right|}
+$$
 
 ## 决策树的生成
 
