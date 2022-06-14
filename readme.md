@@ -8,7 +8,7 @@
 
 参考资料主要为计 8 年级白钰卓学姐和邱可玥学姐的笔记、马老师的课堂 PPT、动手学深度学习、tjy & Eren 的课堂笔记等等，其余参考资料会在每一章复习的具体段落给出
 
-友情 repo：lambda 的[模拟题生成器](https://github.com/Btlmd/IAI_Gen)
+友情 repo：lambda 的[模拟题生成器](https://github.com/Btlmd/IAI_Gen)，涵盖 `svm` 与 $\alpha-\beta$
 
 ## 文档分工
 
