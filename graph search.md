@@ -174,6 +174,10 @@ $$
 - 第 9 步，若 $m_c$ 存在节点 $m_k$ 有更小的 $f$ 值，更新 $m_k$，并将其重新加入 OPEN 表（这个非常重要，而且马老师的课件与我的一本参考书里不太一样，这里放回去是马老师的做法，也是我觉得更正确的做法）
 - 第 10 步，将 OPEN 表的节点按 $f$ 值大小排序，保证取出的节点是 $f$ 值最小的
 
+注意，用选出的 OPEN 表 $f$ 最小值节点来更新的时候，例如下图用 $B$ 更新 $A$，$A $ 会被更新为 $(g_b+distance(b,a)+h(a))$，而不是直接用 $f(b)+distance(b,a)$
+
+<img src="pic/graph_search/renew.JPG" alt="renew" style="zoom:50%;" />
+
 ## Dijkstra 与 BFS ( Best-First Search)
 
 ### 基本思想
@@ -268,7 +272,7 @@ $$
 
 $Q(W_{i,\ j})$ 表示起点到点 $W_{i,\ j}$ 的最佳路径值，$Q(W_0)=0$，$D(a,b)$ 表示点 a 到点 b 的距离
 
-![viterbi](pic/graph_search/viterbi.JPG)
+<img src="pic/graph_search/viterbi.JPG" alt="viterbi" style="zoom:50%;" />
 
 #### 算法框架
 
