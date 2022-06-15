@@ -172,7 +172,7 @@ $$
 
 BGD 对于凸误差曲面（convex error surface）保证收敛到全局最优点，而对于非凸曲面（non-convex surface）则是局部最优点。
 
-缺点：收敛缓慢，容易陷入局部极值点
+缺点：收敛缓慢，容易陷入局部极值点。
 
 **随机梯度下降**
 
@@ -189,7 +189,7 @@ BGD 能够收敛到（局部）最优点，然而 SGD 的震荡特点导致其�
 
 **Mini-batch 梯度下降**
 
-Mini-batch gradient descent（ mini-batch gradient descent, MBGD ）则是在上面两种方法中采取了一个折中的办法：每次从训练集中取出$batch  size$个样本作为一个mini-batch，以此来进行一次参数更新。
+Mini-batch gradient descent（ mini-batch gradient descent, MBGD ）则是在上面两种方法中采取了一个折中的办法：每次从训练集中取出 batch size 个样本作为一个 mini-batch，以此来进行一次参数更新。
 
 $$
 \theta=\theta -\eta \cdot \nabla_{\theta} J(\theta;x^{(i:i+n);y^{(i:i+n)}})
@@ -288,7 +288,7 @@ $$
 >
 > ResNet：
 >
-> 设输入为 $\boldsymbol{x}$，假设我们希望学出的理想映射为 $f(\boldsymbol{x})$，从而作为激活函数的输入。左图虚线框中的部分需要直接拟合出该映射 $f(\boldsymbol{x})$，而右图虚线框中的部分则需要拟合出有关恒等映射的残差映射 $f(\boldsymbol{x})-\boldsymbol{x}$。残差映射在实际中往往更容易优化。实际中，当理想映射 $f(\boldsymbol{x})$ 极接近于恒等映射时，残差映射也易于捕捉恒等映射的细微波动。右图也是ResNet的基础块，即残差块（residual block）。在残差块中，输入可通过跨层的数据线路更快地向前传播。
+> 设输入为 $\boldsymbol{x}$，假设我们希望学出的理想映射为 $f(\boldsymbol{x})$，从而作为激活函数的输入。左图虚线框中的部分需要直接拟合出该映射 $f(\boldsymbol{x})$，而右图虚线框中的部分则需要拟合出有关恒等映射的残差映射 $f(\boldsymbol{x})-\boldsymbol{x}$。残差映射在实际中往往更容易优化。实际中，当理想映射 $f(\boldsymbol{x})$ 极接近于恒等映射时，残差映射也易于捕捉恒等映射的细微波动。右图也是 ResNet 的基础块，即残差块（residual block）。在残差块中，输入可通过跨层的数据线路更快地向前传播。
 >
 > <img src="./pic/deep_learning/res.svg" style="zoom:100%;" />
 
@@ -349,17 +349,17 @@ neural network language model，这一块描述的我真的很不理解，私以
 
 经过简化的 NNLM 模型，连续词袋模型（CBOW）or 跳词模型（Skip-Gram Model）
 
-### CBOW   模型
+### CBOW 模型
 
 对于第 t 个词 $w_t$，考虑其前后各 n 个词，我们假定语义信息是连续的，根据前后 n 个词能够推测出 $w_t$ 的语义信息。
 
-<img src="./pic/deep_learning/huffman.jpg" style="zoom:40%;" />
+<img src="./pic/deep_learning/huffman.jpg" style="zoom:70%;" />
 
 也即在此图中，直接将词向量相加得到 $x_w$，当然，这里可以用同一套参数作用在词上，可以看成是一次卷积。
 
 接下来，把得到的 tensor $w_t$ 作为一棵霍夫曼树的输入，开始从霍夫曼树的顶部开始往叶节点走。
 
-<img src="./pic/deep_learning/huffman2.jpg" style="zoom:35%;" />
+<img src="./pic/deep_learning/huffman2.jpg" style="zoom:70%;" />
 
 注意，$w_t$ 对应的词所在的位置实际上是确定的（在建树时就由词频决定了），故而 $w_t$ 到达 $w_2$ 的路径是固定的。沿着这条路径，规定子节点在父节点的右侧则取 $\sigma$ ，反之则取 $1-\sigma$。
 
