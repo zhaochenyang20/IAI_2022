@@ -146,7 +146,7 @@ flowchart TD
       4--2-->6--4-->7(["T"])
 ```
 
-
+<img src="./pic/exam/A2.jpg" style="zoom:50%;" />
 
 # 决策树
 
