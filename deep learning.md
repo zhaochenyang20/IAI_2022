@@ -21,7 +21,7 @@ Credit to [Eren Zhao](https://zhaochenyang20.github.io/) and [saltyp0rridge](htt
 
 1. **全连接神经网络** —— 对 n-1 层和 n 层而言，n-1 层的任意一个节点，都和第 n 层所有节点有连接。即第 n 层的每个节点在进行计算的时候，[激活函数](https://so.csdn.net/so/search?q=激活函数&spm=1001.2101.3001.7020)的输入是 n-1 层所有节点的加权，这个激活函数是非线性的，可作用于大多数场景，然而**权重过多，计算量很大。**
 2. **前馈神经网络** —— 在其内部，参数从输入层向输出层单向传播。有异于[循环神经网络](https://zh.wikipedia.org/wiki/循环神经网络)，它的内部不会构成[有向环](https://zh.wikipedia.org/wiki/環_(圖論))。
-3. **多层感知器** ——（Multilayer Perceptron,缩写MLP）是一种前向结构的[人工神经网络](https://zh.m.wikipedia.org/wiki/人工神经网络)，映射一组输入向量到一组输出向量。MLP可以被看作是一个有向图，由多个的节点层所组成，每一层都全连接到下一层。除了输入节点，每个节点都是一个带有非线性激活函数的神经元（或称处理单元）。一种被称为[反向传播算法](https://zh.m.wikipedia.org/wiki/反向传播算法)的[监督学习](https://zh.m.wikipedia.org/wiki/监督学习)方法常被用来训练MLP。多层感知器遵循人类神经系统原理，学习并进行数据预测。它首先学习，然后使用权重存储数据，并使用算法来调整权重并减少训练过程中的偏差，即实际值和预测值之间的误差。主要优势在于其快速解决复杂问题的能力。多层感知的基本结构由三层组成：第一输入层，中间隐藏层和最后输出层，输入元素和权重的乘积被馈给具有神经元偏差的求和结点,主要优势在于其快速解决复杂问题的能力。MLP是[感知器](https://zh.m.wikipedia.org/wiki/感知器)的推广，克服了感知器不能对[线性不可分](https://zh.m.wikipedia.org/w/index.php?title=线性不可分&action=edit&redlink=1)数据进行识别的弱点。
+3. **多层感知器** ——（Multilayer Perceptron，缩写 MLP）是一种前向结构的[人工神经网络](https://zh.m.wikipedia.org/wiki/人工神经网络)，映射一组输入向量到一组输出向量。MLP可以被看作是一个有向图，由多个的节点层所组成，每一层都全连接到下一层。除了输入节点，每个节点都是一个带有非线性激活函数的神经元（或称处理单元）。一种被称为[反向传播算法](https://zh.m.wikipedia.org/wiki/反向传播算法)的[监督学习](https://zh.m.wikipedia.org/wiki/监督学习)方法常被用来训练 MLP。多层感知器遵循人类神经系统原理，学习并进行数据预测。它首先学习，然后使用权重存储数据，并使用算法来调整权重并减少训练过程中的偏差，即实际值和预测值之间的误差。主要优势在于其快速解决复杂问题的能力。多层感知的基本结构由三层组成：第一输入层，中间隐藏层和最后输出层，输入元素和权重的乘积被馈给具有神经元偏差的求和结点,主要优势在于其快速解决复杂问题的能力。MLP 是[感知器](https://zh.m.wikipedia.org/wiki/感知器)的推广，克服了感知器不能对[线性不可分](https://zh.m.wikipedia.org/w/index.php?title=线性不可分&action=edit&redlink=1)数据进行识别的弱点。
 4. **全连接层** —— Fully Connected Layer 类似 FCN
 5. **稠密层** —— 即 FCL 的同义词
 
@@ -172,7 +172,7 @@ $$
 
 BGD 对于凸误差曲面（convex error surface）保证收敛到全局最优点，而对于非凸曲面（non-convex surface）则是局部最优点。
 
-缺点：收敛缓慢，容易陷入局部极值点
+缺点：收敛缓慢，容易陷入局部极值点。
 
 **随机梯度下降**
 
@@ -189,7 +189,7 @@ BGD 能够收敛到（局部）最优点，然而 SGD 的震荡特点导致其�
 
 **Mini-batch 梯度下降**
 
-Mini-batch gradient descent（ mini-batch gradient descent, MBGD ）则是在上面两种方法中采取了一个折中的办法：每次从训练集中取出$batch  size$个样本作为一个mini-batch，以此来进行一次参数更新。
+Mini-batch gradient descent（ mini-batch gradient descent, MBGD ）则是在上面两种方法中采取了一个折中的办法：每次从训练集中取出 batch size 个样本作为一个 mini-batch，以此来进行一次参数更新。
 
 $$
 \theta=\theta -\eta \cdot \nabla_{\theta} J(\theta;x^{(i:i+n);y^{(i:i+n)}})
@@ -288,7 +288,7 @@ $$
 >
 > ResNet：
 >
-> 设输入为 $\boldsymbol{x}$，假设我们希望学出的理想映射为 $f(\boldsymbol{x})$，从而作为激活函数的输入。左图虚线框中的部分需要直接拟合出该映射 $f(\boldsymbol{x})$，而右图虚线框中的部分则需要拟合出有关恒等映射的残差映射 $f(\boldsymbol{x})-\boldsymbol{x}$。残差映射在实际中往往更容易优化。实际中，当理想映射 $f(\boldsymbol{x})$ 极接近于恒等映射时，残差映射也易于捕捉恒等映射的细微波动。右图也是ResNet的基础块，即残差块（residual block）。在残差块中，输入可通过跨层的数据线路更快地向前传播。
+> 设输入为 $\boldsymbol{x}$，假设我们希望学出的理想映射为 $f(\boldsymbol{x})$，从而作为激活函数的输入。左图虚线框中的部分需要直接拟合出该映射 $f(\boldsymbol{x})$，而右图虚线框中的部分则需要拟合出有关恒等映射的残差映射 $f(\boldsymbol{x})-\boldsymbol{x}$。残差映射在实际中往往更容易优化。实际中，当理想映射 $f(\boldsymbol{x})$ 极接近于恒等映射时，残差映射也易于捕捉恒等映射的细微波动。右图也是 ResNet 的基础块，即残差块（residual block）。在残差块中，输入可通过跨层的数据线路更快地向前传播。
 >
 > <img src="./pic/deep_learning/res.svg" style="zoom:100%;" />
 
@@ -349,17 +349,17 @@ neural network language model，这一块描述的我真的很不理解，私以
 
 经过简化的 NNLM 模型，连续词袋模型（CBOW）or 跳词模型（Skip-Gram Model）
 
-### CBOW   模型
+### CBOW 模型
 
 对于第 t 个词 $w_t$，考虑其前后各 n 个词，我们假定语义信息是连续的，根据前后 n 个词能够推测出 $w_t$ 的语义信息。
 
-<img src="./pic/deep_learning/huffman.jpg" style="zoom:40%;" />
+<img src="./pic/deep_learning/huffman.jpg" style="zoom:70%;" />
 
 也即在此图中，直接将词向量相加得到 $x_w$，当然，这里可以用同一套参数作用在词上，可以看成是一次卷积。
 
 接下来，把得到的 tensor $w_t$ 作为一棵霍夫曼树的输入，开始从霍夫曼树的顶部开始往叶节点走。
 
-<img src="./pic/deep_learning/huffman2.jpg" style="zoom:35%;" />
+<img src="./pic/deep_learning/huffman2.jpg" style="zoom:70%;" />
 
 注意，$w_t$ 对应的词所在的位置实际上是确定的（在建树时就由词频决定了），故而 $w_t$ 到达 $w_2$ 的路径是固定的。沿着这条路径，规定子节点在父节点的右侧则取 $\sigma$ ，反之则取 $1-\sigma$。
 
