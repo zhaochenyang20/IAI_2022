@@ -420,9 +420,10 @@ $$
 
 channel 这个概念混淆的很厉害。总结一下，我按照 torch 中的 cnn 的 channel 定义，将其分为三种：
 
-1. 最初输入的图片样本的 channels ，取决于图片类型，比如RGB
-2. 卷积操作完成后输出的 out_channels ，即卷积核的数量。此时的 out_channels 也会作为下一次卷积时的卷积核的 in_channels。注意，对于某个卷积核产生的一个隐藏层，这个隐藏层上的神经元共享参数。然而不同的卷积核产生的不同隐藏层并不共享参数
-3. 卷积核中的 in_channels ，就是上一次卷积的 out_channels ，如果是第一次做卷积，就是样本图片的 channels
+1. 最初输入的图片样本的 channels ，取决于图片类型，比如 RGB
+2. 卷积操作完成后输出的 out_channels ，即卷积核的数量。此时的 out_channels 也会作为下一次卷积时的卷积核的 in_channels
+3. 注意，对于某个卷积核产生的一个隐藏层，这个隐藏层上的神经元共享参数。然而不同的卷积核产生的不同隐藏层并不共享参数
+4. 卷积核中的 in_channels ，就是上一次卷积的 out_channels ，如果是第一次做卷积，就是样本图片的 channels
 
 ### 池化
 
@@ -430,7 +431,7 @@ channel 这个概念混淆的很厉害。总结一下，我按照 torch 中的 c
 
 ### 填充与步幅
 
-一般来说，当高的步幅 sh，宽的步幅 sw，高两侧的填充 ph，宽两侧填充 pw，卷积核形状为 kh×kw，则输出大小为： $$ \lfloor(n_h-k_h+p_h+s_h)/s_h\rfloor \times \lfloor(n_w-k_w+p_w+s_w)/s_w\rfloor. $$ 如果设置 ph=kh−1 和 pw=kw−1，那么输出形状将简化为 $$ \lfloor(n_h+s_h-1)/s_h\rfloor \times \lfloor(n_w+s_w-1)/s_w\rfloor $$ 更进一步，如果输入的高和宽能分别被高和宽上的步幅整除，那么输出形状将是 $$ (n_h/s_h) \times (n_w/s_w) $$ 令高和宽上的步幅均为 2，则输入的高和宽减半。
+一般来说，当高的步幅 $s_h$，宽的步幅 $s_w$，高两侧的填充 $p_h$，宽两侧填充 $p_w$，卷积核形状为 $k_h×k_w$，则输出大小为： $$ \lfloor(n_h-k_h+p_h+s_h)/s_h\rfloor \times \lfloor(n_w-k_w+p_w+s_w)/s_w\rfloor. $$ 如果设置 $p_h=k_h−1$ 和 $p_w=k_w−1$，那么输出形状将简化为 $$ \lfloor(n_h+s_h-1)/s_h\rfloor \times \lfloor(n_w+s_w-1)/s_w\rfloor $$ 更进一步，如果输入的高和宽能分别被高和宽上的步幅整除，那么输出形状将是 $$ (n_h/s_h) \times (n_w/s_w) $$ 令高和宽上的步幅均为 2，则输入的高和宽减半。
 
 ## RNN
 
