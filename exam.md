@@ -146,15 +146,15 @@ flowchart TD
 <img src="https://zhaochenyang20.github.io/pic/lecture/2022_spring/IAI/CNN.jpg" alt="CNN" style="zoom:70%;" />
 
 1. 一维多核卷积层：用宽度为 3、5、7 的卷积核分别与输入数据做多核卷积，得到多通道的一维输出特征。
-2. 池化层：对卷积结果进行 max pooling。
-3. 线性层：将池化后的卷积结果拼接在一起，得到长度为通道数的张量，再经过一层带有 dropout 的线性层，而后经过 softmax，得到类别标签预测的向量。
+2. 池化层：对卷积结果进行 max pooling 并拼接。
+3. 线性层：拼接后长度为通道数的张量经过一层带有 dropout 的线性层，而后经过 softmax，得到类别标签预测的向量。
 4. 后计算损失函数并回传梯度下降。
 
 ## MLP
 
 <img src="https://zhaochenyang20.github.io/pic/lecture/2022_spring/IAI/MLP.jpg" alt="MLP" style="zoom:50%;" />
 
-1. 输入层：拥有若干多个神经元，每个神经元接收输入张量 x 与参数矩阵 w 相乘，输出指定大小的张量，然后进行 Batch Normalization, Activation, Dropout，并传递给隐藏层。
+1. 输入层：若干多个神经元 $n_i$ 分别接收输入张量 x 与各自的参数矩阵 w 相乘，输出指定大小的张量，然后进行 Batch Normalization, Activation, Dropout，并传递给隐藏层。
 2. 若干多个隐藏层：与输入层工作类似，不断张量相乘，归一化，激活与 dropout。
 3. 输出层：接受最后一个隐藏层的输出，每个神经元与其参数矩阵相乘并由 softmax 激活，得到类别标签预测的向量。
 4. 后计算损失函数并回传梯度下降。
