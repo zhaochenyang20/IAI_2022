@@ -143,23 +143,22 @@ flowchart TD
 
 ## Text-CNN
 
-<img src="https://zhaochenyang20.github.io/pic/lecture/2022_spring/IAI/CNN.jpg" alt="CNN" style="zoom:70%;" />
+<img src="https://zhaochenyang20.github.io/pic/lecture/2022_spring/IAI/CNN.jpg" alt="CNN" style="zoom:50%;" />
 
 - 依据[参考文献](https://arxiv.org/abs/1408.5882)中的模型搭建 Text-CNN 模型。前向传播流程如下：
 
 1. 嵌入层：将每个表示单词的自然数映射为指定长度的向量，即用向量表示单词。
-2. 一维多核卷积层：用宽度为 3、5、7 的卷积核分别与输入数据做多核卷积，得到多通道的一维输出特征。
-3. 池化层：对卷积结果进行 max pooling。
-4. 线性层：将池化后的卷积结果拼接在一起，得到长度为通道数的张量，再经过一层带有 dropout 的线性层，而后经过 softmax，得到类别标签预测的向量。
-5. 后计算损失函数并回传梯度下降。
+2. 一维多通道多卷积核卷积层：将嵌入层得到的数据视为一批多通道的一维张量；一维张量的长度为对齐后的句子长度，通道数为词向量的数。用指定数量与大小的卷积核与输入数据做多通道多卷积核卷积，得到多通道的一维输出特征。用宽度为 3、5、7 的卷积核分别做三次卷积。
+3. 池化层：对卷积结果进行 activate, Dropout, max pooling。
+4. 线性层：将池化后的卷积结果拼接在一起，得到长度为所有卷积输出通道数之和的张量，再经过一层线性层得到表示类别标签预测的向量。
 
 ## MLP
 
 <img src="https://zhaochenyang20.github.io/pic/lecture/2022_spring/IAI/MLP.jpg" alt="MLP" style="zoom:50%;" />
 
+使用 MLP 作为 baseline 。模型示意图如上，前向传播大致流程如下：
+
 1. 嵌入层：将每个表示单词的自然数映射为指定长度的向量，即用向量表示单词。
-2. 输入层：拥有若干多个神经元，每个神经元接收输入张量 x 与参数矩阵 w 相乘，输出指定大小的张量，然后进行 Batch Normalization, Activation, Dropout，并传递给隐藏层。
-3.  若干多个隐藏层：与输入层工作类似，不断张量相乘，归一化，激活与 dropout。
-4. 输出层：接受最后一个隐藏层的输出，每个神经元与其参数矩阵相乘并由 softmax 激活，得到类别标签预测的向量。
-5. 后计算损失函数并回传梯度下降。
+2. 线性层1：接收一批将句子中的词向量直接拼接起来得到的张量为输入，输出指定大小的张量，然后进行 Batch Normalization, Activation, Dropout。
+3. 线性层2：输出表示类别标签预测的向量。
 
