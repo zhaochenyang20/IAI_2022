@@ -18,6 +18,7 @@
 | 滕嘉彦（计 04） | tjy20                                             |
 | 杨力忱（计 07） | ylc20                                             |
 | 高焕昂（计 04） | [c7w](https://c7w.github.io/)                     |
+| 刘明道（计 02） | [lambda](https://github.com/Btlmd)                |
 
 ## readme
 
