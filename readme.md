@@ -12,6 +12,8 @@
 
 友情 repo：lambda 的[模拟题生成器](https://github.com/Btlmd/IAI_Gen)，涵盖 `svm` 与 $\alpha-\beta$
 
+后续添加内容：homework 路径下 Eren 的三次小作业，得分分别为拼音输入法 97，情感分类 94，四子棋 99.2（无智能体加分，扣分源于胜率只有 98%），供后人参考，请谨慎借鉴
+
 ## 文档分工
 
 - `Readme.md`—— Eren
