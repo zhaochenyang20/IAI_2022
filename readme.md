@@ -1,5 +1,24 @@
 ## 2042 IAI Review
 
+## 最近更新
+
+2022.06.16：根据马老师的建议，修改了 SVM 部分对于凸优化的描述—— Eren
+
+如果仓库还存在问题，欢迎 fork 到本地修改并提交 pull request
+
+编者的联系邮箱为 zhaochenyang20@gmail.com
+
+参与编写的人员有：
+
+| 人员            | 相关信息                                          |
+| --------------- | ------------------------------------------------- |
+| 赵晨阳（计 06） | [Eren](https://zhaochenyang20.github.io/)         |
+| 汪博文（计 06） | [Saltyp0rridge](https://saltyp0rridge.github.io/) |
+| 陈逸洋（计 94） | [Monoxide](https://github.com/Monoxide-Chen)      |
+| 滕嘉彦（计 04） | tjy20                                             |
+| 杨力忱（计 07） | ylc20                                             |
+| 高焕昂（计 04） | [c7w](https://c7w.github.io/)                     |
+
 ## readme
 
 **Credit to Eren, Saltyp0rridge, Monoxide Chen, tjy20, ylc20**
