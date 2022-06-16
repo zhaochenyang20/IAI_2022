@@ -4,7 +4,14 @@ Pinyin input method in Python. Homework of Intro. to AI course, 2022 Spring @THU
 
 [zhaochen20](https://zhaochenyang20.github.io/) THUCST Class 6
 
-The [attached leture](https://cloud.tsinghua.edu.cn/d/29ade1c39b2d4eac91e7/) for my classmates.
+The [attached leture](https://cloud.tsinghua.edu.cn/d/29ade1c39b2d4eac91e7/) for my classmates
+
+In order to prevent previous link from expiring, you can refer to the following three links.
+
+- [PDF](https://zhaochenyang20.github.io/pdf/python_tutorial.pdf)
+
+- [IPYNB](https://zhaochenyang20.github.io/ipynb/python_tutorial.ipynb)
+- [HTML](https://zhaochenyang20.github.io/html/python_tutorial.html)
 
 # The Principle
 
