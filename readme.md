@@ -1,8 +1,14 @@
-## 2042 IAI Review
+# 2042 IAI Review
+
+## 说明
+
+这是一份 2022 年所写的人智导笔记，由于 Github 上传文件受限，如果你是在计算机系 Cracker 所看见，请移步到[原仓库地址](https://github.com/zhaochenyang20/IAI_2022)查阅相关资料。
 
 ## 最近更新
 
-- 2022.07.14：编者将清华树洞封锁前的所有数据上传到了[清华 gitlab](https://github.com/zhaochenyang20/THU-hole)，供以后同学训练拼音输入法
+- 2022.07.28：编者将原仓库贡献到 [REKCARC-TSC-UHT](https://github.com/PKUanonym/REKCARC-TSC-UHT)
+
+- 2022.07.14：编者将清华树洞封锁前的所有数据上传到了[清华 Gitlab](https://github.com/zhaochenyang20/THU-hole)，供以后同学训练拼音输入法
 
 - 2022.06.16：根据马老师的建议，修改了 SVM 部分对于凸优化的描述—— Eren
 
