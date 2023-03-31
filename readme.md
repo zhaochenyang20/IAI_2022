@@ -6,6 +6,8 @@
 
 ## 最近更新
 
+- 2023.03.31：编者补充了第一次作业的 `train.py`，详细情况请参考 `homework/readme.md`
+
 - 2022.07.28：编者将原仓库贡献到 [REKCARC-TSC-UHT](https://github.com/PKUanonym/REKCARC-TSC-UHT)
 
 - 2022.07.14：编者将清华树洞封锁前的所有数据上传到了[清华 Gitlab](https://github.com/zhaochenyang20/THU-hole)，供以后同学训练拼音输入法
